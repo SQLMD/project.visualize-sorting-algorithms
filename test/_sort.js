@@ -14,6 +14,17 @@ describe("BubbleSort", () => {
     expect(bubble.sortedArray).to.be.an("array");
   });
   it("should sort an array in the correct order", () => {
-    expect(bubble.sortedArray).to.be.equal([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
+    expect(bubble.sortedArray).to.be.deep.equal([
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+    ]);
   });
 });
