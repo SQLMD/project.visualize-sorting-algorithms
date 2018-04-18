@@ -1,4 +1,4 @@
-class SomeKindOfSort {
+class BuubleSort {
   constructor(array) {
     this.array = array;
   }
