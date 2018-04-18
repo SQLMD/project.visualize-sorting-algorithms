@@ -11,8 +11,9 @@ describe("BubbleSort", () => {
     expect(bubble.sort).to.be.a("function");
   });
   it("should return an array", () => {
-    const sA = bubble.sortedArray;
-    expect(sA).to.be.an("array");
+    expect(bubble.sortedArray).to.be.an("array");
   });
-  //it("should sort an array in the correct order", () => {});
+  it("should sort an array in the correct order", () => {
+    expect(bubble.sortedArray).to.be.equal([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
+  });
 });
