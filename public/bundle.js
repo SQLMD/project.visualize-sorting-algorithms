@@ -75,7 +75,6 @@
   /******/ [
     /* 0 */
     /***/ function(module, exports, __webpack_require__) {
-      /*global document*/
       // How can we use require here if it's frontend? We can thank webpack.
       // Thank You WebPack!
 
@@ -84,9 +83,11 @@
       // A link to our styles!
       __webpack_require__(2);
 
-      const sort = new BubbleSort();
+      const sort = new BubbleSort([10, 9, 8, 7, 6, 5, 4, 3, 2, 1]);
 
-      //const result
+      const result = document.querySelector("#result");
+
+      result.innerText = sort.sortedArray;
 
       /***/
     },
@@ -103,7 +104,7 @@
         sort() {
           for (let i = 0; i < this.array.length; i++) {
             for (let j = 0; j < this.array.length; j++) {
-              let swapped = false;
+              //let swapped = false;
               if (this.array[j] > this.array[j + 1]) {
                 const swapValue = this.array[j];
                 this.array[j] = this.array[j + 1];
