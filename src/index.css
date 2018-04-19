@@ -1,6 +1,7 @@
 body {
-  background-color: steelblue;
+  background-color: white;
   text-align: center;
+  font-size: 1.5em;
 }
 
 main {
@@ -9,19 +10,24 @@ main {
 }
 
 #list {
-  flex: 1;
   display: flex;
   justify-content: space-around;
+  align-items: center;
 }
 
 bubble {
-  display: block;
   background: white;
   border-radius: 50%;
-  height: 5em;
-  width: 5em;
+
   margin: 0;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  background: radial-gradient(
+    circle at bottom,
+    #81e8f6,
+    #76deef 10%,
+    #055194 80%,
+    #062745 100%
+  );
 }

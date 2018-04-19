@@ -82,12 +82,43 @@
 
       // A link to our styles!
       __webpack_require__(2);
+      const reversed = [10, 9, 8, 7, 6, 5, 4, 3, 2, 1];
+      const random = [8, 5, 6, 3, 2, 10, 1, 4, 7, 9];
+      const bubbleList = random;
 
-      const sort = new BubbleSort([10, 9, 8, 7, 6, 5, 4, 3, 2, 1]);
+      const sort = new BubbleSort(bubbleList);
 
       const result = document.querySelector("#result");
 
-      result.innerText = sort.sortedArray;
+      const bubbles = document.querySelectorAll("bubble");
+
+      bubbles.forEach((bubble, index) => {
+        bubble.style.height = bubbleList[index] + "em";
+        bubble.style.width = bubbleList[index] + "em";
+        bubble.textContent = bubbleList[index];
+      });
+
+      for (let i = 0; i < bubbleList.length; i++) {
+        setTimeout(function() {
+          for (let j = 0; j < bubbleList.length; j++) {
+            setTimeout(function() {
+              if (bubbleList[j] > bubbleList[j + 1]) {
+                [bubbleList[j], bubbleList[j + 1]] = [
+                  bubbleList[j + 1],
+                  bubbleList[j],
+                ];
+                bubbles.forEach((bubble, index) => {
+                  bubble.style.height = bubbleList[index] + "em";
+                  bubble.style.width = bubbleList[index] + "em";
+                  bubble.textContent = bubbleList[index];
+                });
+              }
+            }, 500 * j);
+          }
+        }, 5200 * i);
+      }
+
+      //result.innerText = sort.sortedArray;
 
       /***/
     },
@@ -106,9 +137,10 @@
             for (let j = 0; j < this.array.length; j++) {
               //let swapped = false;
               if (this.array[j] > this.array[j + 1]) {
-                const swapValue = this.array[j];
-                this.array[j] = this.array[j + 1];
-                this.array[j + 1] = swapValue;
+                [this.array[j], this.array[j + 1]] = [
+                  this.array[j + 1],
+                  this.array[j],
+                ];
               }
             }
           }
@@ -165,7 +197,7 @@
       // module
       exports.push([
         module.i,
-        "body {\n  background-color: steelblue;\n  text-align: center;\n}\n\nmain {\n  display: flex;\n  justify-content: center;\n}\n\n#list {\n  flex: 1;\n  display: flex;\n  justify-content: space-around;\n}\n\nbubble {\n  display: block;\n  background: white;\n  border-radius: 50%;\n  height: 5em;\n  width: 5em;\n  margin: 0;\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n}\n",
+        "body {\n  background-color: white;\n  text-align: center;\n  font-size: 1.5em;\n}\n\nmain {\n  display: flex;\n  justify-content: center;\n}\n\n#list {\n  display: flex;\n  justify-content: space-around;\n  align-items: center;\n}\n\nbubble {\n  background: white;\n  border-radius: 50%;\n\n  margin: 0;\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  background: radial-gradient(\n    circle at bottom,\n    #81e8f6,\n    #76deef 10%,\n    #055194 80%,\n    #062745 100%\n  );\n}\n",
         "",
       ]);
 

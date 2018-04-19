@@ -11,9 +11,10 @@ class BubbleSort {
       for (let j = 0; j < this.array.length; j++) {
         //let swapped = false;
         if (this.array[j] > this.array[j + 1]) {
-          const swapValue = this.array[j];
-          this.array[j] = this.array[j + 1];
-          this.array[j + 1] = swapValue;
+          [this.array[j], this.array[j + 1]] = [
+            this.array[j + 1],
+            this.array[j],
+          ];
         }
       }
     }
