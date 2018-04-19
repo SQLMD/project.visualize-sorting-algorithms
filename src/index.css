@@ -1,40 +1,35 @@
 body {
   background-color: white;
-  text-align: center;
   font-size: 1.5em;
+  text-align: center;
 }
 
 main {
+  align-items: center;
   display: flex;
   flex-direction: column;
-  align-items: center;
 }
 
 #steps {
-  margin-top: 75px;
   font-size: 2em;
+  margin-top: 75px;
 }
 
 .step {
-  padding: 5px;
   background-color: #ffff00;
+  padding: 5px;
 }
 
 #list {
+  align-items: center;
+  color: white;
   display: flex;
   justify-content: space-around;
-  align-items: center;
-  width: 90%;
   margin: 40px;
-  color: white;
+  width: 90%;
 }
 
 bubble {
-  border-radius: 50%;
-  margin: 2px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
   background: radial-gradient(
     circle at bottom,
     #81e8f6,
@@ -42,17 +37,22 @@ bubble {
     #055194 80%,
     #062745 100%
   );
-  transition: all 0.7s;
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 2px;
   max-width: 15em;
   max-height: 15em;
+  transition: all 0.7s;
 }
 
 button {
+  background-color: #055194;
+  border-radius: 5px;
+  color: white;
   font-size: 2em;
   margin: 20px;
-  border-radius: 5px;
-  background-color: #055194;
-  color: white;
 }
 
 input {
