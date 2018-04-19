@@ -163,7 +163,11 @@
       // imports
 
       // module
-      exports.push([module.i, "body {\n  background-color: #55b491;\n}\n", ""]);
+      exports.push([
+        module.i,
+        "body {\n  background-color: steelblue;\n  text-align: center;\n}\n\nmain {\n  display: flex;\n  justify-content: center;\n}\n\n#list {\n  flex: 1;\n  display: flex;\n  justify-content: space-around;\n}\n\nbubble {\n  display: block;\n  background: white;\n  border-radius: 50%;\n  height: 5em;\n  width: 5em;\n  margin: 0;\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n}\n",
+        "",
+      ]);
 
       // exports
 
