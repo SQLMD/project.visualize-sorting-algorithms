@@ -98,6 +98,8 @@
         bubble.textContent = bubbleList[index];
       });
 
+      //bubbles[0].style.borderBottom = "3 black solid";
+
       for (let i = 0; i < bubbleList.length; i++) {
         setTimeout(function() {
           for (let j = 0; j < bubbleList.length; j++) {
@@ -118,7 +120,7 @@
         }, 5200 * i);
       }
 
-      //result.innerText = sort.sortedArray;
+      // result.innerText = sort.sortedArray;
 
       /***/
     },
@@ -197,7 +199,7 @@
       // module
       exports.push([
         module.i,
-        "body {\n  background-color: white;\n  text-align: center;\n  font-size: 1.5em;\n}\n\nmain {\n  display: flex;\n  justify-content: center;\n}\n\n#list {\n  display: flex;\n  justify-content: space-around;\n  align-items: center;\n}\n\nbubble {\n  background: white;\n  border-radius: 50%;\n\n  margin: 0;\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  background: radial-gradient(\n    circle at bottom,\n    #81e8f6,\n    #76deef 10%,\n    #055194 80%,\n    #062745 100%\n  );\n}\n",
+        "body {\n  background-color: white;\n  text-align: center;\n  font-size: 1.5em;\n}\n\nmain {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n}\n\n#list {\n  display: flex;\n  justify-content: space-around;\n  align-items: center;\n  width: 90%;\n}\n\n#one {\n  border: 5 solid black;\n}\n\nbubble {\n  background: white;\n  border-radius: 50%;\n\n  margin: 0;\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  background: radial-gradient(\n    circle at bottom,\n    #81e8f6,\n    #76deef 10%,\n    #055194 80%,\n    #062745 100%\n  );\n}\n",
         "",
       ]);
 

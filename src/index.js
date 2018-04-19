@@ -21,6 +21,8 @@ bubbles.forEach((bubble, index) => {
   bubble.textContent = bubbleList[index];
 });
 
+//bubbles[0].style.borderBottom = "3 black solid";
+
 for (let i = 0; i < bubbleList.length; i++) {
   setTimeout(function() {
     for (let j = 0; j < bubbleList.length; j++) {
@@ -41,4 +43,4 @@ for (let i = 0; i < bubbleList.length; i++) {
   }, 5200 * i);
 }
 
-//result.innerText = sort.sortedArray;
+// result.innerText = sort.sortedArray;
