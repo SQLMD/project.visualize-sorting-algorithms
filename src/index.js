@@ -11,15 +11,24 @@ const bubbleList = random;
 
 const sort = new BubbleSort(bubbleList);
 
-const result = document.querySelector("#result");
+//const steps = sort.sortedSteps;
 
 const bubbles = document.querySelectorAll("bubble");
+const bubble = d3
+  .select("#list")
+  .selectAll("bubble")
+  .data(bubbleList);
 
-bubbles.forEach((bubble, index) => {
-  bubble.style.height = bubbleList[index] + "em";
-  bubble.style.width = bubbleList[index] + "em";
-  bubble.textContent = bubbleList[index];
-});
+bubble
+  .style("height", (d) => d + "em")
+  .style("width", (d) => d + "em")
+  .text((d) => d);
+
+// bubbles.forEach((bubble, index) => {
+//   bubble.style.height = bubbleList[index] + "em";
+//   bubble.style.width = bubbleList[index] + "em";
+//   bubble.textContent = bubbleList[index];
+// });
 
 //bubbles[0].style.borderBottom = "3 black solid";
 
@@ -32,15 +41,47 @@ for (let i = 0; i < bubbleList.length; i++) {
             bubbleList[j + 1],
             bubbleList[j],
           ];
-          bubbles.forEach((bubble, index) => {
-            bubble.style.height = bubbleList[index] + "em";
-            bubble.style.width = bubbleList[index] + "em";
-            bubble.textContent = bubbleList[index];
-          });
+          const bubble = d3
+            .select("#list")
+            .selectAll("bubble")
+            .data(bubbleList);
+
+          bubble
+            .style("height", (d) => d + "em")
+            .style("width", (d) => d + "em")
+            .text((d) => d);
         }
-      }, 500 * j);
+      }, 1000 * j);
     }
-  }, 5200 * i);
+  }, (11000 - i * 1000) * i);
 }
 
 // result.innerText = sort.sortedArray;
+// d3
+//   .select("body")
+//   .transition()
+//   .duration(7500 )
+//   .style("background-color", "black");
+//var dataset = [5, 10, 15, 20, 25];
+//d3.select("body").selectAll("p");
+
+// d3
+//   .select("#svg-try")
+//   .selectAll("circle")
+//   .data(random)
+//   .enter()
+//   .append("circle")
+//   .attr("cy", 50 + "%")
+//   .attr("cx", (d, i) => (i + 2) * 8 + "%")
+//   .attr("r", (d) => d * 5);
+
+// d3
+//   .select("#svg-try")
+//   .selectAll("text")
+//   .data(random)
+//   .enter()
+//   .append("text")
+//   .text((d) => d)
+//   .attr("y", 50 + "%")
+//   .attr("x", (d, i) => (i + 2) * 8 - 1 + "%")
+//   .attr("fill", "black");

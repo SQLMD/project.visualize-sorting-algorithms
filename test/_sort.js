@@ -16,4 +16,7 @@ describe("BubbleSort", () => {
   it("should sort an array in the correct order", () => {
     expect(bubble.sortedArray).to.be.deep.equal([1, 2, 3, 5, 8]);
   });
+  it("sortedSteps should be an array", () => {
+    expect(bubble.sortedSteps).to.be.an("array");
+  });
 });

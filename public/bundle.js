@@ -88,15 +88,24 @@
 
       const sort = new BubbleSort(bubbleList);
 
-      const result = document.querySelector("#result");
+      //const steps = sort.sortedSteps;
 
       const bubbles = document.querySelectorAll("bubble");
+      const bubble = d3
+        .select("#list")
+        .selectAll("bubble")
+        .data(bubbleList);
 
-      bubbles.forEach((bubble, index) => {
-        bubble.style.height = bubbleList[index] + "em";
-        bubble.style.width = bubbleList[index] + "em";
-        bubble.textContent = bubbleList[index];
-      });
+      bubble
+        .style("height", (d) => d + "em")
+        .style("width", (d) => d + "em")
+        .text((d) => d);
+
+      // bubbles.forEach((bubble, index) => {
+      //   bubble.style.height = bubbleList[index] + "em";
+      //   bubble.style.width = bubbleList[index] + "em";
+      //   bubble.textContent = bubbleList[index];
+      // });
 
       //bubbles[0].style.borderBottom = "3 black solid";
 
@@ -109,18 +118,50 @@
                   bubbleList[j + 1],
                   bubbleList[j],
                 ];
-                bubbles.forEach((bubble, index) => {
-                  bubble.style.height = bubbleList[index] + "em";
-                  bubble.style.width = bubbleList[index] + "em";
-                  bubble.textContent = bubbleList[index];
-                });
+                const bubble = d3
+                  .select("#list")
+                  .selectAll("bubble")
+                  .data(bubbleList);
+
+                bubble
+                  .style("height", (d) => d + "em")
+                  .style("width", (d) => d + "em")
+                  .text((d) => d);
               }
-            }, 500 * j);
+            }, 1000 * j);
           }
-        }, 5200 * i);
+        }, (11000 - i * 1000) * i);
       }
 
       // result.innerText = sort.sortedArray;
+      // d3
+      //   .select("body")
+      //   .transition()
+      //   .duration(7500 )
+      //   .style("background-color", "black");
+      //var dataset = [5, 10, 15, 20, 25];
+      //d3.select("body").selectAll("p");
+
+      // d3
+      //   .select("#svg-try")
+      //   .selectAll("circle")
+      //   .data(random)
+      //   .enter()
+      //   .append("circle")
+      //   .attr("cy", 50 + "%")
+      //   .attr("cx", (d, i) => (i + 2) * 8 + "%")
+      //   .attr("r", (d) => d * 5);
+
+      // d3
+      //   .select("#svg-try")
+      //   .selectAll("text")
+      //   .data(random)
+      //   .enter()
+      //   .append("text")
+      //   .text((d) => d)
+      //   .attr("y", 50 + "%")
+      //   .attr("x", (d, i) => (i + 2) * 8 - 1 + "%")
+      //   .attr("fill", "black");
 
       /***/
     },
@@ -129,9 +170,15 @@
       class BubbleSort {
         constructor(array) {
           this.array = array;
+          this.sortSteps = [this.array.slice(0)];
         }
         get sortedArray() {
           return this.sort();
+        }
+
+        get sortedSteps() {
+          this.sort();
+          return this.sortSteps;
         }
 
         sort() {
@@ -143,6 +190,8 @@
                   this.array[j + 1],
                   this.array[j],
                 ];
+                const step = this.array.slice(0);
+                this.sortSteps.push(step);
               }
             }
           }
@@ -199,7 +248,7 @@
       // module
       exports.push([
         module.i,
-        "body {\n  background-color: white;\n  text-align: center;\n  font-size: 1.5em;\n}\n\nmain {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n}\n\n#list {\n  display: flex;\n  justify-content: space-around;\n  align-items: center;\n  width: 90%;\n}\n\n#one {\n  border: 5 solid black;\n}\n\nbubble {\n  background: white;\n  border-radius: 50%;\n\n  margin: 0;\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  background: radial-gradient(\n    circle at bottom,\n    #81e8f6,\n    #76deef 10%,\n    #055194 80%,\n    #062745 100%\n  );\n}\n",
+        "body {\n  background-color: white;\n  text-align: center;\n  font-size: 1.5em;\n}\n\nmain {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n}\n#svg-container {\n  width: 80%;\n}\n\n#list {\n  display: flex;\n  justify-content: space-around;\n  align-items: center;\n  width: 90%;\n}\n\nbubble {\n  border-radius: 50%;\n  margin: 2px;\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  background: radial-gradient(\n    circle at bottom,\n    #81e8f6,\n    #76deef 10%,\n    #055194 80%,\n    #062745 100%\n  );\n  transition: all 0.5s;\n}\n/* circle {\n  fill: url(#grad1);\n} */\n",
         "",
       ]);
 

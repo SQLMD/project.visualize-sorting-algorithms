@@ -1,9 +1,15 @@
 class BubbleSort {
   constructor(array) {
     this.array = array;
+    this.sortSteps = [this.array.slice(0)];
   }
   get sortedArray() {
     return this.sort();
+  }
+
+  get sortedSteps() {
+    this.sort();
+    return this.sortSteps;
   }
 
   sort() {
@@ -15,6 +21,8 @@ class BubbleSort {
             this.array[j + 1],
             this.array[j],
           ];
+          const step = this.array.slice(0);
+          this.sortSteps.push(step);
         }
       }
     }

@@ -9,6 +9,9 @@ main {
   flex-direction: column;
   align-items: center;
 }
+#svg-container {
+  width: 80%;
+}
 
 #list {
   display: flex;
@@ -17,15 +20,9 @@ main {
   width: 90%;
 }
 
-#one {
-  border: 5 solid black;
-}
-
 bubble {
-  background: white;
   border-radius: 50%;
-
-  margin: 0;
+  margin: 2px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -36,4 +33,8 @@ bubble {
     #055194 80%,
     #062745 100%
   );
+  transition: all 0.5s;
 }
+/* circle {
+  fill: url(#grad1);
+} */
