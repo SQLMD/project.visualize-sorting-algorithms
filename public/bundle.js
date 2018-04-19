@@ -164,19 +164,24 @@
         }
 
         sort() {
-          for (let i = 0; i < this.array.length; i++) {
-            for (let j = 0; j < this.array.length; j++) {
-              //let swapped = false;
-              if (this.array[j] > this.array[j + 1]) {
-                [this.array[j], this.array[j + 1]] = [
-                  this.array[j + 1],
-                  this.array[j],
-                ];
-                const step = this.array.slice(0);
-                this.sortSteps.push(step);
+          let swapped = true;
+          while (swapped) {
+            swapped = false;
+            for (let i = 0; i < this.array.length; i++) {
+              for (let j = 0; j < this.array.length; j++) {
+                if (this.array[j] > this.array[j + 1]) {
+                  [this.array[j], this.array[j + 1]] = [
+                    this.array[j + 1],
+                    this.array[j],
+                  ];
+                  swapped = true;
+                  const step = this.array.slice(0);
+                  this.sortSteps.push(step);
+                }
               }
             }
           }
+
           return this.array;
         }
       }
