@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width">
   <link rel="icon" href="/public/favicon.ico" />
   <title>Bubble Sort Vizualization</title>
+  <!-- Use d3 to turn sort array into bubble elements -->
   <script src="https://d3js.org/d3.v5.min.js"></script>
 </head>
 
@@ -13,18 +14,20 @@
   <h1>Bubble Sort Visualization</h1>
   <main>
     <div id="list">
-      <bubble id="one">10</bubble>
-      <bubble id="two">9</bubble>
-      <bubble id="three">8</bubble>
-      <bubble id="four">7</bubble>
-      <bubble id="five">6</bubble>
-      <bubble id="six">5</bubble>
-      <bubble id="seven">4</bubble>
-      <bubble id="eight">3</bubble>
-      <bubble id="nine">2</bubble>
-      <bubble id="ten">1</bubble>
+      <!-- bubbles added here via JavaScript -->
     </div>
-
+    <div id="steps"></div>
+    <div id="button-container">
+      <button id="btn-start">Start</button>
+    </div>
+    <div id="radio-container">
+      <input type="radio" id="arrayChoice1" name="radioArray" value="ordered" checked>
+      <label for="arrayChoice1">Ordered</label>
+      <input type="radio" id="arrayChoice2" name="radioArray" value="random">
+      <label for="arrayChoice2">Random</label>
+      <input type="radio" id="arrayChoice3" name="radioArray" value="reversed">
+      <label for="arrayChoice3">Reversed</label>
+    </div>
   </main>
 
 

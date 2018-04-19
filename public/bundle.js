@@ -77,91 +77,73 @@
     /***/ function(module, exports, __webpack_require__) {
       // How can we use require here if it's frontend? We can thank webpack.
       // Thank You WebPack!
+      __webpack_require__(3);
 
       const BubbleSort = __webpack_require__(1);
+      const genArray = __webpack_require__(2);
+      let sort;
+      let steps = [];
+      let bubbleList = [];
+      const stepSpan = document.querySelector("#steps");
+      const btnStart = document.querySelector("#btn-start");
+      const radios = document.querySelectorAll("input");
+      const list = document.querySelector("#list");
 
-      // A link to our styles!
-      __webpack_require__(2);
-      const reversed = [10, 9, 8, 7, 6, 5, 4, 3, 2, 1];
-      const random = [8, 5, 6, 3, 2, 10, 1, 4, 7, 9];
-      const bubbleList = random;
+      const resizeBubbles = (data) => {
+        const bubbles = d3
+          .select("#list")
+          .selectAll("bubble")
+          .data(data);
 
-      const sort = new BubbleSort(bubbleList);
+        bubbles
+          .style("height", (d) => d + "em")
+          .style("width", (d) => d + "em")
+          .text((d) => d);
+      };
 
-      //const steps = sort.sortedSteps;
+      const addBubbles = (data) => {
+        bubbles = d3
+          .select("#list")
+          .selectAll("bubble")
+          .data(data)
+          .enter()
+          .append("bubble");
+        resizeBubbles(data);
+        sort = new BubbleSort(bubbleList);
+        steps = sort.sortedSteps;
+      };
 
-      const bubbles = document.querySelectorAll("bubble");
-      const bubble = d3
-        .select("#list")
-        .selectAll("bubble")
-        .data(bubbleList);
+      const bubbleSort = () => {
+        radios.forEach((radio) => {
+          radio.disabled = true;
+        });
+        for (let i = 0; i < steps.length; i++) {
+          setTimeout(function() {
+            resizeBubbles(steps[i]);
+            stepSpan.innerHTML =
+              "Step <span class='step'>" + (i + 1) + "</span>: " + steps[i];
+          }, 300 * i);
+        }
+      };
 
-      bubble
-        .style("height", (d) => d + "em")
-        .style("width", (d) => d + "em")
-        .text((d) => d);
+      const setup = (order) => {
+        while (list.firstChild) {
+          list.removeChild(list.firstChild);
+        }
+        bubbleList = genArray(order, 10);
+        addBubbles(bubbleList);
+      };
 
-      // bubbles.forEach((bubble, index) => {
-      //   bubble.style.height = bubbleList[index] + "em";
-      //   bubble.style.width = bubbleList[index] + "em";
-      //   bubble.textContent = bubbleList[index];
-      // });
+      btnStart.addEventListener("click", bubbleSort);
+      radios.forEach((radio) => {
+        radio.addEventListener("click", () => {
+          setup(radio.value);
+        });
+      });
 
-      //bubbles[0].style.borderBottom = "3 black solid";
+      setup("ordered");
 
-      for (let i = 0; i < bubbleList.length; i++) {
-        setTimeout(function() {
-          for (let j = 0; j < bubbleList.length; j++) {
-            setTimeout(function() {
-              if (bubbleList[j] > bubbleList[j + 1]) {
-                [bubbleList[j], bubbleList[j + 1]] = [
-                  bubbleList[j + 1],
-                  bubbleList[j],
-                ];
-                const bubble = d3
-                  .select("#list")
-                  .selectAll("bubble")
-                  .data(bubbleList);
-
-                bubble
-                  .style("height", (d) => d + "em")
-                  .style("width", (d) => d + "em")
-                  .text((d) => d);
-              }
-            }, 1000 * j);
-          }
-        }, (11000 - i * 1000) * i);
-      }
-
-      // result.innerText = sort.sortedArray;
-      // d3
-      //   .select("body")
-      //   .transition()
-      //   .duration(7500 )
-      //   .style("background-color", "black");
-      //var dataset = [5, 10, 15, 20, 25];
-      //d3.select("body").selectAll("p");
-
-      // d3
-      //   .select("#svg-try")
-      //   .selectAll("circle")
-      //   .data(random)
-      //   .enter()
-      //   .append("circle")
-      //   .attr("cy", 50 + "%")
-      //   .attr("cx", (d, i) => (i + 2) * 8 + "%")
-      //   .attr("r", (d) => d * 5);
-
-      // d3
-      //   .select("#svg-try")
-      //   .selectAll("text")
-      //   .data(random)
-      //   .enter()
-      //   .append("text")
-      //   .text((d) => d)
-      //   .attr("y", 50 + "%")
-      //   .attr("x", (d, i) => (i + 2) * 8 - 1 + "%")
-      //   .attr("fill", "black");
+      //100 items = 4951 steps 82 minutes!!!!
 
       /***/
     },
@@ -204,11 +186,49 @@
       /***/
     },
     /* 2 */
+    /***/ function(module, exports) {
+      const generateArray = (order, length) => {
+        let result = [];
+        const shuffle = (array) => {
+          var tmp,
+            current,
+            top = array.length;
+          if (top)
+            while (--top) {
+              current = Math.floor(Math.random() * (top + 1));
+              tmp = array[current];
+              array[current] = array[top];
+              array[top] = tmp;
+            }
+          return array;
+        };
+
+        if (order === "reversed") {
+          for (let i = length; i > 0; i--) {
+            result.push(i);
+          }
+          return result;
+        }
+
+        for (i = 1; i <= length; i++) {
+          result.push(i);
+        }
+        if (order === "random") {
+          result = shuffle(result);
+        }
+        return result;
+      };
+
+      module.exports = generateArray;
+
+      /***/
+    },
+    /* 3 */
     /***/ function(module, exports, __webpack_require__) {
       // style-loader: Adds some css to the DOM by adding a <style> tag
 
       // load the styles
-      var content = __webpack_require__(3);
+      var content = __webpack_require__(4);
       if (typeof content === "string") content = [[module.i, content, ""]];
       // Prepare cssTransformation
       var transform;
@@ -216,7 +236,7 @@
       var options = { hmr: true };
       options.transform = transform;
       // add the styles to the DOM
-      var update = __webpack_require__(5)(content, options);
+      var update = __webpack_require__(6)(content, options);
       if (content.locals) module.exports = content.locals;
       // Hot Module Replacement
       if (false) {
@@ -240,15 +260,15 @@
 
       /***/
     },
-    /* 3 */
+    /* 4 */
     /***/ function(module, exports, __webpack_require__) {
-      exports = module.exports = __webpack_require__(4)(false);
+      exports = module.exports = __webpack_require__(5)(false);
       // imports
 
       // module
       exports.push([
         module.i,
-        "body {\n  background-color: white;\n  text-align: center;\n  font-size: 1.5em;\n}\n\nmain {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n}\n#svg-container {\n  width: 80%;\n}\n\n#list {\n  display: flex;\n  justify-content: space-around;\n  align-items: center;\n  width: 90%;\n}\n\nbubble {\n  border-radius: 50%;\n  margin: 2px;\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  background: radial-gradient(\n    circle at bottom,\n    #81e8f6,\n    #76deef 10%,\n    #055194 80%,\n    #062745 100%\n  );\n  transition: all 0.5s;\n}\n/* circle {\n  fill: url(#grad1);\n} */\n",
+        "body {\n  background-color: white;\n  text-align: center;\n  font-size: 1.5em;\n}\n\nmain {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n}\n\n#steps {\n  margin-top: 75px;\n  font-size: 2em;\n}\n\n.step {\n  padding: 5px;\n  background-color: #ffff00;\n}\n\n#list {\n  display: flex;\n  justify-content: space-around;\n  align-items: center;\n  width: 90%;\n  margin: 40px;\n  color: white;\n}\n\nbubble {\n  border-radius: 50%;\n  margin: 2px;\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  background: radial-gradient(\n    circle at bottom,\n    #81e8f6,\n    #76deef 10%,\n    #055194 80%,\n    #062745 100%\n  );\n  transition: all 0.7s;\n  max-width: 15em;\n  max-height: 15em;\n}\n\nbutton {\n  font-size: 2em;\n  margin: 20px;\n  border-radius: 5px;\n  background-color: #055194;\n  color: white;\n}\n\ninput {\n  margin: 50px 0 0 50px;\n}\n",
         "",
       ]);
 
@@ -256,7 +276,7 @@
 
       /***/
     },
-    /* 4 */
+    /* 5 */
     /***/ function(module, exports) {
       /*
 	MIT License http://www.opensource.org/licenses/mit-license.php
@@ -345,7 +365,7 @@
 
       /***/
     },
-    /* 5 */
+    /* 6 */
     /***/ function(module, exports, __webpack_require__) {
       /*
 	MIT License http://www.opensource.org/licenses/mit-license.php
@@ -400,7 +420,7 @@
       var singletonCounter = 0;
       var stylesInsertedAtTop = [];
 
-      var fixUrls = __webpack_require__(6);
+      var fixUrls = __webpack_require__(7);
 
       module.exports = function(list, options) {
         if (typeof DEBUG !== "undefined" && DEBUG) {
@@ -738,7 +758,7 @@
 
       /***/
     },
-    /* 6 */
+    /* 7 */
     /***/ function(module, exports) {
       /**
        * When source maps are enabled, `style-loader` uses a link element with a data-uri to

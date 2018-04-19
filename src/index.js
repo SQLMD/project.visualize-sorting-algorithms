@@ -1,87 +1,69 @@
 // How can we use require here if it's frontend? We can thank webpack.
 // Thank You WebPack!
+require("./index.css");
 
 const BubbleSort = require("./BubbleSort");
+const genArray = require("./ArrayGenerator");
+let sort;
+let steps = [];
+let bubbleList = [];
+const stepSpan = document.querySelector("#steps");
+const btnStart = document.querySelector("#btn-start");
+const radios = document.querySelectorAll("input");
+const list = document.querySelector("#list");
 
-// A link to our styles!
-require("./index.css");
-const reversed = [10, 9, 8, 7, 6, 5, 4, 3, 2, 1];
-const random = [8, 5, 6, 3, 2, 10, 1, 4, 7, 9];
-const bubbleList = random;
+const resizeBubbles = (data) => {
+  const bubbles = d3
+    .select("#list")
+    .selectAll("bubble")
+    .data(data);
 
-const sort = new BubbleSort(bubbleList);
+  bubbles
+    .style("height", (d) => d + "em")
+    .style("width", (d) => d + "em")
+    .text((d) => d);
+};
 
-//const steps = sort.sortedSteps;
+const addBubbles = (data) => {
+  bubbles = d3
+    .select("#list")
+    .selectAll("bubble")
+    .data(data)
+    .enter()
+    .append("bubble");
+  resizeBubbles(data);
+  sort = new BubbleSort(bubbleList);
+  steps = sort.sortedSteps;
+};
 
-const bubbles = document.querySelectorAll("bubble");
-const bubble = d3
-  .select("#list")
-  .selectAll("bubble")
-  .data(bubbleList);
+const bubbleSort = () => {
+  radios.forEach((radio) => {
+    radio.disabled = true;
+  });
+  for (let i = 0; i < steps.length; i++) {
+    setTimeout(function() {
+      resizeBubbles(steps[i]);
+      stepSpan.innerHTML =
+        "Step <span class='step'>" + (i + 1) + "</span>: " + steps[i];
+    }, 300 * i);
+  }
+};
 
-bubble
-  .style("height", (d) => d + "em")
-  .style("width", (d) => d + "em")
-  .text((d) => d);
+const setup = (order) => {
+  while (list.firstChild) {
+    list.removeChild(list.firstChild);
+  }
+  bubbleList = genArray(order, 10);
+  addBubbles(bubbleList);
+};
 
-// bubbles.forEach((bubble, index) => {
-//   bubble.style.height = bubbleList[index] + "em";
-//   bubble.style.width = bubbleList[index] + "em";
-//   bubble.textContent = bubbleList[index];
-// });
+btnStart.addEventListener("click", bubbleSort);
+radios.forEach((radio) => {
+  radio.addEventListener("click", () => {
+    setup(radio.value);
+  });
+});
 
-//bubbles[0].style.borderBottom = "3 black solid";
+setup("ordered");
 
-for (let i = 0; i < bubbleList.length; i++) {
-  setTimeout(function() {
-    for (let j = 0; j < bubbleList.length; j++) {
-      setTimeout(function() {
-        if (bubbleList[j] > bubbleList[j + 1]) {
-          [bubbleList[j], bubbleList[j + 1]] = [
-            bubbleList[j + 1],
-            bubbleList[j],
-          ];
-          const bubble = d3
-            .select("#list")
-            .selectAll("bubble")
-            .data(bubbleList);
-
-          bubble
-            .style("height", (d) => d + "em")
-            .style("width", (d) => d + "em")
-            .text((d) => d);
-        }
-      }, 1000 * j);
-    }
-  }, (11000 - i * 1000) * i);
-}
-
-// result.innerText = sort.sortedArray;
-// d3
-//   .select("body")
-//   .transition()
-//   .duration(7500 )
-//   .style("background-color", "black");
-//var dataset = [5, 10, 15, 20, 25];
-//d3.select("body").selectAll("p");
-
-// d3
-//   .select("#svg-try")
-//   .selectAll("circle")
-//   .data(random)
-//   .enter()
-//   .append("circle")
-//   .attr("cy", 50 + "%")
-//   .attr("cx", (d, i) => (i + 2) * 8 + "%")
-//   .attr("r", (d) => d * 5);
-
-// d3
-//   .select("#svg-try")
-//   .selectAll("text")
-//   .data(random)
-//   .enter()
-//   .append("text")
-//   .text((d) => d)
-//   .attr("y", 50 + "%")
-//   .attr("x", (d, i) => (i + 2) * 8 - 1 + "%")
-//   .attr("fill", "black");
+//100 items = 4951 steps 82 minutes!!!!
