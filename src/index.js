@@ -66,4 +66,3 @@ radios.forEach((radio) => {
 
 setup("ordered");
 
-//100 items = 4951 steps 82 minutes!!!!
